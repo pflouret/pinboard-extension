@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget xmlns="http://www.w3.org/ns/widgets" version="0.1" id="pinboard">
+  <name>pinboard.in</name>
+  <description>An unofficial extension to easily save the current page to pinboard.in</description>
+  <author href="http://quux.com.ar" email="quuxbaz@gmail.com">Pablo Flouret</author>
+  <icon src="img/logo.png" width="229" height="250"/>
+  <access origin="https://api.pinboard.in/"/>
+</widget>

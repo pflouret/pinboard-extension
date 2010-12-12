@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel=stylesheet type="text/css" href="style.css">
+    <script type="text/javascript" src="messages.js"></script>
+    <script type="text/javascript" src="popup.js"></script>
+
+    <script>
+        window.onload = function () {
+            if (!opera.extension) {
+                document.body.innerHTML = "Can't do anything with the current tab, sorry."
+                return;
+            }
+
+            var bg = opera.extension.bgProcess;
+
+            var a = document.getElementById("username")
+            a.textContent = bg.user;
+            a.href = "http://pinboard.in/u:" + bg.user;
+
+            var data = fillForm();
+
+            if (!data["url"]) {
+                showMessage("error", "Couldn't get the url from the current tab, please reload it.");
+                document.querySelector("#suggested p").innerHTML = "&#x2205;";
+            } else {
+                bg.pinboard.posts.suggest(getPopulateTags(document.getElementById("suggested")), data.url);
+            }
+            bg.pinboard.tags.get(getPopulateTags(document.getElementById("user-tags")));
+        }
+    </script>
+</head>
+<body>
+    <p id=user>
+        <img src="img/bluepin.gif">
+        <a href="#" id="username">blah</a>
+        <span style="font-size: 0.8em">[<a href="#">logout</a>]</span>
+    </p>
+
+    <p id=msgbox class=hidden onclick="hideMessage(true)"></p>
+
+    <div id=form-container>
+        <form name=save-link onsubmit="return submitForm()">
+            <input type=submit name=save value="save current page">
+            <input type=submit name=later value="read later" onclick="return this.clicked=true;"><br>
+            <input name=title type=text> <label for=title>title</label><br>
+            <textarea name=desc></textarea> <label for=desc>description</label><br>
+            <input name=tags type=text> <label for=tags>tags</label><br>
+            <input name=url type=text required> <label for=url>url</label><br>
+            <input name=private type=checkbox> <label for=private>private</label>
+            <input name=toread type=checkbox> <label for=toread>read later</label><br>
+        </form>
+    </div>
+
+    <div class=tags id=suggested>
+        <h1>Suggested tags</h1>
+        <p><img src="img/loading.gif"></p>
+    </div>
+
+    <div class=tags id=user-tags>
+        <h1>Your tags</h1>
+        <p><img src="img/loading.gif"></p>
+    </div>
+</body>
+</html>

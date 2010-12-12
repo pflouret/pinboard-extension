@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>pinboard.in extension preferences</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="messages.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var f = document.forms["options"];
+            f.elements.width.value = widget.preferences.popupWidth;
+            f.elements.height.value = widget.preferences.popupHeight;
+            f.elements.private.checked = widget.preferences.privateAsDefault == "true";
+        }
+
+        function handleFormChanged() {
+            var f = document.forms["options"],
+                p = widget.preferences;
+
+            p.popupWidth = f.elements.width.value.toString();
+            p.popupHeight = f.elements.height.value.toString();
+            p.privateAsDefault = f.elements.private.checked;
+
+            opera.extension.bgProcess.uiitem.popup.width = p.popupWidth;
+            opera.extension.bgProcess.uiitem.popup.height = p.height;
+            opera.extension.bgProcess.updateUIItem();
+
+            showMessage("success", "Preferences saved");
+        }
+    </script>
+</head>
+<body>
+    <h1>pinboard.in extension preferences</h1>
+    <p id=msgbox class=hidden onclick="hideMessage(true)"></p>
+    <form name=options onsubmit="return false" onchange="handleFormChanged()">
+        <input name=width type=number> <label for=width>Popup width (px)</label><br>
+        <input name=height type=number> <label for=height>Popup height (px)</label><br>
+        <input name=private type=checkbox> <label for=private>Save links as private by default</label>
+    </form>
+</body>
+</html>

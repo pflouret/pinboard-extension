@@ -1,0 +1,38 @@
+body {
+    font-family: helvetica, tahoma, verdana, sans-serif;
+    font-size: 0.8em;
+    color: #333;
+}
+
+a { color: blue; text-decoration: none; }
+a:hover { color: red; text-decoration: underline; }
+
+img { vertical-align: middle; border: none; }
+
+input { margin: 4px 0; }
+textarea { height: 70px; }
+input[type=text], textarea { width: 90%; }
+
+#user { margin: 5px 0; }
+
+#msgbox {
+    text-align: center;
+    padding: 5px 0;
+    margin: 0;
+    width: 98%;
+    z-index: -1;
+    opacity: 1;
+    -o-transition-property: opacity;
+    -o-transition-timing-function: ease-in;
+    transition-property: opacity;
+    transition-timing-function: ease-in;
+}
+#msgbox.hidden { opacity: 0; }
+#msgbox.message { background-color: #ffffc7; }
+#msgbox.error { background-color: #fdc0c0; }
+#msgbox.success { background-color: #d5ffcf; }
+
+#form > h1 { font-size: 1.3em; }
+.tags > h1 { font-size: 1.2em; }
+.tags > p { margin: 0; padding: 0; }
+.taglist > li { display: inline; }
