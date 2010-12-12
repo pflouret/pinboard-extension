@@ -8,10 +8,28 @@ if (!widget.preferences.runOnceBefore) {
 var o = opera.extension;
 var uiitem;
 var user, pass;
+var pinboard;
 
-o.user = user;
+var alwaysEnableUIItem = true;
 
-var pinboard = new Pinboard(user, pass);
+function setUser(username, password) {
+    pinboard = new Pinboard(username, password);
+    var r = pinboard.posts.update();
+
+    if (r.type != "error") {
+        user = username;
+        pass = password;
+        //uiitem.popup.href = "popup.html";
+        //updateUIItem();
+    }
+    return r;
+}
+
+function logout() {
+    pinboard = null;
+    user = null;
+    pass = null;
+}
 
 function currentTitle() {
     try { return o.tabs.getFocused().title; } catch (e) { return ""; }
@@ -26,21 +44,20 @@ o.onmessage = function (e) {
     switch (obj.type) {
         case "userjs":
             // it was probably a background page, not necessarily the focused one, but what the hell...
-            //uiitem.disabled = !o.tabs.getFocused();
+            if (!alwaysEnableUIItem && user)
+                uiitem.disabled = !o.tabs.getFocused();
             break;
         default:
             break;
     }
 }
 
-/*
-o.tabs.onfocus = function () {
-    var tab = o.tabs.getFocused();
-    opera.postError(tab ? tab.url : null);
-    //uiitem.disabled = !o.tabs.getFocused();
-    uiitem.disabled = !tab;
+if (!alwaysEnableUIItem) {
+    o.tabs.onfocus = function () {
+        if (user)
+            uiitem.disabled = !o.tabs.getFocused();
+    }
 }
-*/
 
 function updateUIItem() {
     if (uiitem)
@@ -51,7 +68,7 @@ function updateUIItem() {
         title: "pinboard.in",
         icon: "img/bluepin.gif",
         popup: {
-            href: "popup.html",
+            href: "login.html",
             width: widget.preferences.popupWidth + "px",
             height: widget.preferences.popupHeight + "px"
         }

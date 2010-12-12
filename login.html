@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel=stylesheet type="text/css" href="style.css">
+    <script type="text/javascript" src="messages.js"></script>
+    <style type="text/css">
+        input[name=username], input[name=password] { width: 150px; }
+        h1 { font-size: 1.1em; }
+    </style>
+
+    <script>
+        var bg = opera.extension.bgProcess;
+
+        window.onload = function () {
+            if (bg.user) {
+                //location.href = "popup.html";
+                window.close();
+                bg.uiitem.popup.href = "popup.html";
+                return;
+            }
+        }
+
+        function submitForm() {
+            var f = document.forms.login;
+
+            showMessage("message", "Checking login details", true);
+
+            if (f.elements.username.validity.valueMissing ||
+                f.elements.password.validity.valueMissing) {
+                showMessage("error", "Fill out all the fields");
+                return true;
+            }
+
+            var r = bg.setUser(f.elements.username.value, f.elements.password.value);
+
+            if (r.type == "error") {
+                showMessage("error", r.code == 401 ? "Wrong username or password" : r.msg);
+            } else {
+                //location.href = "popup.html"; // doesn't work
+                //bg.uiitem.popup.href = "popup.html"; // crashes
+                // lol
+                setTimeout(function () {
+                    // hAx!
+                    window.close();
+                    bg.uiitem.popup.href = "popup.html"
+                }, 0);
+            }
+
+            return false;
+        }
+    </script>
+</head>
+<body>
+    <h1>Login to your pinboard.in account to be able to submit links</h1>
+
+    <p id=msgbox class=hidden onclick="hideMessage(true)"></p>
+
+    <div id=form-container>
+        <form name=login action="" onsubmit="return submitForm()">
+            <input name=username type=text required> <label for=username>username</label><br>
+            <input name=password type=password required> <label for=password>password</label><br>
+            <input type=submit name=login value="login">
+        </form>
+    </div>
+</body>
+</html>

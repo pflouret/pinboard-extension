@@ -6,13 +6,28 @@
     <script type="text/javascript" src="popup.js"></script>
 
     <script>
+        if (opera.extension && !opera.extension.bgProcess.user) {
+            toLogin();
+        }
+
+        var bg = opera.extension.bgProcess;
+
+        function toLogin() {
+            //location.href = "login.html";
+            window.close();
+            bg.uiitem.popup.href = "login.html";
+        }
+
+        function logout() {
+            bg.logout();
+            toLogin();
+        }
+
         window.onload = function () {
             if (!opera.extension) {
                 document.body.innerHTML = "Can't do anything with the current tab, sorry."
                 return;
             }
-
-            var bg = opera.extension.bgProcess;
 
             var a = document.getElementById("username")
             a.textContent = bg.user;
@@ -34,7 +49,7 @@
     <p id=user>
         <img src="img/bluepin.gif">
         <a href="#" id="username">blah</a>
-        <span style="font-size: 0.8em">[<a href="#">logout</a>]</span>
+        <span style="font-size: 0.8em">[<a href="#" onclick="logout()">logout</a>]</span>
     </p>
 
     <p id=msgbox class=hidden onclick="hideMessage(true)"></p>

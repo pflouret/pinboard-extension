@@ -102,7 +102,7 @@ function Pinboard(user, pass) {
 
     function getResult(xhr, method) {
         if (xhr.status != 200 && xhr.status != 0)
-            return getError("Server returned status code " + xhr.status);
+            return getError("Server returned status code " + xhr.status, xhr.status);
 
         var xml = xhr.responseXML;
         try {
