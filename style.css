@@ -11,7 +11,7 @@ img { vertical-align: middle; border: none; }
 
 input { margin: 4px 0; }
 textarea { height: 70px; }
-input[type=text], textarea { width: 90%; }
+input[type=text], textarea { width: 85%; }
 
 #user { margin: 5px 0; }
 
