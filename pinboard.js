@@ -137,7 +137,7 @@ function Pinboard(user, pass) {
                             date: new Date(Date.parse(p.getAttribute("time"))),
                             title: p.getAttribute("description"),
                             description: p.getAttribute("extended"),
-                            tags: p ? p.split(" ") : [],
+                            tags: tags ? tags.split(" ") : [],
                             shared: p.getAttribute("shared") == "no" ? false : true,
                             toread: p.getAttribute("toread") == "yes" ? true : false,
                             hash: p.getAttribute("hash"),
