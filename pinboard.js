@@ -25,7 +25,7 @@ function Pinboard(user, pass) {
             return request("posts/delete", args, cb);
         },
 
-        get: function (cb, tags, date, url, hashes, meta) {
+        get: function (cb, url, tags, date, hashes, meta) {
             var args = {
                 tag: tags,
                 dt: (date || new Date()).toISOString(),
