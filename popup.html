@@ -41,7 +41,7 @@
                 showMessage("error", "Couldn't get the url from the current tab, please reload it.");
                 document.querySelector("#suggested p").innerHTML = "&#x2205;";
             }
-            bg.pinboard.tags.get(getPopulateTags(document.getElementById("user-tags")));
+            populateUserTags(document.getElementById("user-tags"));
         }
     </script>
 </head>

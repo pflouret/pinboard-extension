@@ -85,17 +85,36 @@ function addOrRemoveTag() {
     return false;
 }
 
-function getPopulateTags(div) {
+function populateUserTags(div) {
+    if (bg.storage.userTags) {
+        var a = {
+            type: "tags",
+            tags: bg.storage.userTags.split(" ").map(function (t) { return { name: t }; })
+        }
+        getPopulateTags(div)(a);
+    }
+
+    bg.pinboard.tags.get(getPopulateTags(div, true));
+}
+
+function getPopulateTags(div, cache) {
     return function (r) {
         var p = div.getElementsByTagName("p")[0];
-        p.textContent = "";
 
         if (r.type == "tags") {
+            if (cache) {
+                var s = r.tags.map(function (t) { return t.name }).join(" ");
+                if (bg.storage.userTags == s)
+                    return;
+                bg.storage.userTags = s;
+            }
+
             if (r.tags.length == 0) {
                 p.innerHTML = "&#x2205;";
                 return;
             }
 
+            p.textContent = "";
             for (var i=0; i < r.tags.length; i++) {
                 var a = document.createElement("a");
                 a.href = "#";

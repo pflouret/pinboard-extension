@@ -6,6 +6,7 @@ if (!widget.preferences.runOnceBefore) {
 }
 
 var o = opera.extension;
+var storage = localStorage;
 var uiitem;
 var user, pass;
 var pinboard;
@@ -22,6 +23,9 @@ function setUser(username, password) {
         //uiitem.popup.href = "popup.html";
         //updateUIItem();
     }
+
+    delete storage.userTags;
+
     return r;
 }
 
@@ -29,6 +33,7 @@ function logout() {
     pinboard = null;
     user = null;
     pass = null;
+    delete storage.userTags;
 }
 
 function currentTitle() {
