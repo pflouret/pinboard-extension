@@ -6,9 +6,8 @@
     <script type="text/javascript" src="popup.js"></script>
 
     <script>
-        if (opera.extension && !opera.extension.bgProcess.user) {
+        if (opera.extension && !opera.extension.bgProcess.user)
             toLogin();
-        }
 
         var bg = opera.extension.bgProcess;
 
@@ -35,11 +34,12 @@
 
             var data = fillForm();
 
-            if (!data["url"]) {
+            if (data.url) {
+                bg.pinboard.posts.get(populateFormFromExisting, data.url);
+                bg.pinboard.posts.suggest(getPopulateTags(document.getElementById("suggested")), data.url);
+            } else {
                 showMessage("error", "Couldn't get the url from the current tab, please reload it.");
                 document.querySelector("#suggested p").innerHTML = "&#x2205;";
-            } else {
-                bg.pinboard.posts.suggest(getPopulateTags(document.getElementById("suggested")), data.url);
             }
             bg.pinboard.tags.get(getPopulateTags(document.getElementById("user-tags")));
         }
@@ -48,7 +48,7 @@
 <body>
     <p id=user>
         <img src="img/bluepin.gif">
-        <a href="#" id="username">blah</a>
+        <a href="#" id="username"></a>
         <span style="font-size: 0.8em">[<a href="#" onclick="logout()">logout</a>]</span>
     </p>
 
@@ -63,7 +63,8 @@
             <input name=tags type=text> <label for=tags>tags</label><br>
             <input name=url type=text required> <label for=url>url</label><br>
             <input name=private type=checkbox> <label for=private>private</label>
-            <input name=toread type=checkbox> <label for=toread>read later</label><br>
+            <input name=toread type=checkbox> <label for=toread>read later</label>
+            <input name=replace type=hidden>
         </form>
     </div>
 

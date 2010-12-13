@@ -18,6 +18,20 @@ function fillForm() {
     }
 }
 
+function populateFormFromExisting(r) {
+    if (r.type == "posts" && r.posts.length == 1) {
+        var f = document.forms["save-link"],
+            p = r.posts[0];
+        showMessage("message", "You already saved this page on " + r.date.toDateString() + ". The details will be updated.");
+        f.elements.replace.value = "true";
+        f.elements.title.value = p.title;
+        f.elements.desc.value = p.description;
+        f.elements.tags.value = p.tags.join(" ");
+        f.elements.private.checked = !p.shared;
+        f.elements.toread.checked = p.toread;
+    }
+}
+
 function submitForm() {
     var e = document.forms["save-link"].elements,
         title = e.title.value,
@@ -25,7 +39,9 @@ function submitForm() {
         tags = e.tags.value.trim().split(" "),
         url = e.url.value,
         shared = !e.private.checked,
-        toread = e.toread.checked || e.later.clicked;
+        toread = e.toread.checked || e.later.clicked,
+        replace = e.replace.value == "true";
+
     e.later.clicked = false;
 
     showMessage("message", "Saving link", true);
@@ -44,7 +60,7 @@ function submitForm() {
         }
     }
 
-    bg.pinboard.posts.add(cb, url, title, desc, tags, new Date(), false, shared, toread);
+    bg.pinboard.posts.add(cb, url, title, desc, tags, new Date(), replace, shared, toread);
 
     return false;
 }
