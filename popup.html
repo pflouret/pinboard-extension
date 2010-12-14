@@ -13,8 +13,9 @@
 
         function toLogin() {
             //location.href = "login.html";
-            window.close();
-            bg.uiitem.popup.href = "login.html";
+            var a = document.createElement("a");
+            a.href = "login.html";
+            a.click();
         }
 
         function logout() {
