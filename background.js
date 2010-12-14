@@ -1,9 +1,3 @@
-if (!widget.preferences.runOnceBefore) {
-    widget.preferences.runOnceBefore = true;
-    widget.preferences.popupWidth = "570";
-    widget.preferences.popupHeight = "530";
-    widget.preferences.privateAsDefault = false;
-}
 
 var o = opera.extension;
 var storage = localStorage;
