@@ -65,7 +65,7 @@ function updateUIItem() {
     uiitem = opera.contexts.toolbar.createItem({
         disabled: false,
         title: "pinboard.in",
-        icon: "img/bluepin.gif",
+        icon: "img/logo18.png",
         popup: {
             href: "login.html",
             width: widget.preferences.popupWidth + "px",
