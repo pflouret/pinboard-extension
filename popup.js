@@ -1,21 +1,72 @@
 
-var $ = document.querySelector;
 var bg = opera.extension.bgProcess;
 
 function fillForm() {
     var url = bg.currentUrl(),
         title = bg.currentTitle(),
-        form = document.forms["save-link"];
+        f = document.forms["save-link"].elements,
+        ret = { url: url, title: title };
 
-    form.elements.url.value = url;
-    form.elements.title.value = title;
-    form.elements.private.checked = widget.preferences.privateAsDefault == "true";
-    //form.elements.desc.value = document.getSelection();
+    if (!url)
+        return ret;
 
-    return {
-        url: url,
-        title: title,
+    setSaveFormHandlers(url);
+
+    try {
+        if (url in bg.storage) {
+            var p = JSON.parse(bg.storage[url]);
+            f.url.value = p.url;
+            f.title.value = p.title;
+            f.desc.value = p.description;
+            f.tags.value = p.tags;
+            f.private.checked = p.private;
+            f.toread.checked = p.toread;
+            f.replace.value = "true";
+            ret.inStorage = true;
+            return ret;
+        }
+    } catch (e) {}
+
+    f.url.value = url;
+    f.title.value = title;
+    f.private.checked = widget.preferences.privateAsDefault == "true";
+    //f.desc.value = document.getSelection();
+
+    return ret;
+}
+
+function setSaveFormHandlers(url) {
+    var f = document.forms["save-link"].elements;
+
+    var save = (function (url) { return function () { saveForm(url) }; })(url);
+    var delayedSave = function () {
+        var timerId;
+        return function () {
+            clearTimeout(timerId);
+            timerId = setTimeout(save, 400);
+        }
     }
+
+    for (var i=0; i < f.length; i++) {
+        if (f[i].type != "checkbox")
+            f[i].onkeyup = delayedSave();
+    }
+}
+
+function saveForm(url) {
+    if (!url)
+        return;
+
+    opera.postError('saving ' + url);
+    var f = document.forms["save-link"];
+    bg.storage[url] = JSON.stringify({
+        url: f.elements.url.value,
+        title: f.elements.title.value,
+        description: f.elements.desc.value,
+        tags: f.elements.tags.value,
+        private: f.elements.private.checked,
+        toread: f.elements.toread.checked,
+    });
 }
 
 function populateFormFromExisting(r) {
@@ -57,6 +108,7 @@ function submitForm() {
         } else {
             showMessage("success", "Link saved!");
             hideMessage();
+            delete bg.storage[url];
         }
     }
 
@@ -81,6 +133,7 @@ function addOrRemoveTag() {
     }
 
     tagsInput.value = tags.join(" ");
+    tagsInput.onkeyup();
 
     return false;
 }

@@ -63,7 +63,6 @@ function updateUIItem() {
         opera.contexts.toolbar.removeItem(uiitem);
 
     uiitem = opera.contexts.toolbar.createItem({
-        disabled: false,
         title: "pinboard.in",
         icon: "img/logo18.png",
         popup: {
@@ -78,7 +77,9 @@ function updateUIItem() {
     return uiitem;
 }
 
-window.addEventListener("load", function() {
-    updateUIItem();
-}, false);
+updateUIItem();
+
+var tags = storage.userTags;
+storage.clear();
+storage.userTags = tags;
 

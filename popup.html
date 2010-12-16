@@ -10,6 +10,7 @@
             toLogin();
 
         var bg = opera.extension.bgProcess;
+        var data;
 
         function toLogin() {
             //location.href = "login.html";
@@ -33,10 +34,11 @@
             a.textContent = bg.user;
             a.href = "http://pinboard.in/u:" + bg.user;
 
-            var data = fillForm();
+            data = fillForm();
 
             if (data.url) {
-                bg.pinboard.posts.get(populateFormFromExisting, data.url);
+                if (!data.inStorage)
+                    bg.pinboard.posts.get(populateFormFromExisting, data.url);
                 bg.pinboard.posts.suggest(getPopulateTags(document.getElementById("suggested")), data.url);
             } else {
                 showMessage("error", "Couldn't get the url from the current tab, please reload it.");
@@ -57,7 +59,7 @@
     <p id=msgbox class=hidden onclick="hideMessage(true)"></p>
 
     <div id=form-container>
-        <form name=save-link onsubmit="return submitForm()">
+        <form name=save-link onsubmit="return submitForm()" onchange="saveForm(data.url)">
             <input type=submit name=save value="save current page">
             <input type=submit name=later value="read later" onclick="return this.clicked=true;"><br>
             <input name=title type=text> <label for=title>title</label><br>
