@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title>pinboard.in opera extension</title>
+
+    <style type="text/css">
+        body {
+            font-size: 14px;
+            background-color: #fff7d7;
+            background-color: #fff;
+            font-family: georgia, "helvetica"; 
+            font-family: "helvetica"; 
+            color: #000;
+            margin-top: 8px;
+        }
+
+        #container {
+            margin: 0 auto;
+            width: 647px;
+        }
+
+        #header {
+            border: 1px solid transparent;
+        }
+
+        #header h1 {
+            margin-top: 40px;
+            margin-left: 0;
+        }
+
+        #header p {
+            margin: 7px 0 0 25px;
+            font-size: 12px;
+            font-family: terminus,monospace;
+        }
+
+        #screenshot {
+            margin-top: 20px;
+            margin-left: -13px;
+        }
+
+        hr {
+            margin: 0;
+            border: 0;
+            width: 100%;
+        }
+
+        hr#top1 {
+            padding: 4px;
+            margin-top: 3px;
+            background-color: #fff7d7;
+        }
+
+        hr#top2 {
+            padding: 1px 4px;
+            background-color: #a40000;
+        }
+
+        hr#top3 {
+            padding: 1px 4px;
+            background-color: #1c86ee;
+        }
+
+        hr#top4 {
+            padding: 1px 4px;
+            background-color: #edd400;
+        }
+
+        .nav {
+            text-align: center;
+            float: right;
+            font-size: 11px;
+            font-family: sans-serif;
+        }
+
+        .nav a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        #footer {
+            font-size: 10px;
+            text-align: center;
+            margin: 40px 0 40px 0;
+        }
+
+        .section {
+            margin-top: 30px;
+        }
+
+        a {
+            color: #001F0B;
+            color: #0000d3;
+        }
+
+        h1 {
+            font-family: georgia, serif;
+            font-size: 40px;
+            letter-spacing: -3px;
+            line-height: 1;
+            margin: 10px;
+            padding: 0;
+        }
+
+        h1 a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        h2, h3 {
+            font-family: garamond, helvetica, georgia, sans-serif;
+            color: #000;
+            letter-spacing: -1px;
+            margin: 8px 0;
+        }
+
+        h2 {
+            font-size: 1.8em;
+        }
+
+        ul {
+            padding: 0 22px;
+            margin: 0 5px;
+        } 
+
+        li {
+            padding: 1px 0;
+        }
+
+        p {
+            margin: 8px 0;
+        }
+
+        pre,code {
+            font-family: "terminus", "consolas", "andale mono", monospace;
+            font-size: 13px;
+        }
+        pre {
+            background: #292929;
+            color: #fff;
+            padding: 15px;
+            margin: 5px 0;
+        }
+        .download {
+            float: right;
+            margin-right: -16px;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div id=container>
+        <div id=header>
+            <div class=nav style="margin-top: 5px">
+                <a href="#f">features</a> &middot;
+                <a href="#d">download</a> &middot;
+                <a href="#c">contact</a>
+            </div>
+            <h1><a href="http://palbo.github.com/pinboard-extension">pinboard.in opera extension</a></h1>
+            <p>
+                An extension for <a href="http://www.opera.com" title="Opera browser">Opera</a> to
+                quickly bookmark pages to <a href="http://pinboard.in">pinboard.in</a>
+            </p>
+        </div>
+
+        <hr id=top1>
+        <hr id=top2>
+        <hr id=top3>
+        <hr id=top4>
+
+        <img id=screenshot src="pinboard.png" alt="screenshot">
+
+        <div class=section>
+            <h2 id=f>Features</h2>
+            <p>
+                <ul>
+                    <li>Click the toolbar button to get a pre-filled submit form with the title and
+                    url of the current page
+                    <li>A list of your tags for quickly adding/removing tags before bookmarking
+                    <li>A list of suggested tags for the current page
+                    <li>Edit the details of the bookmark if the current page was saved before
+                    <li>"Read later" button for quickly saving the page as to-read
+                </ul>
+            </p>
+        </div>
+
+        <div class=section>
+            <h2 id=d>Download</h2>
+            <p>
+                <a href="https://github.com/downloads/palbo/pinboard-extension/pinboard.oex">Install from here</a>
+                (Soon available at the opera extension gallery).
+
+                <br><br>
+                or
+                <br><br>
+
+                Use the source, luke: <a href="http://github.com/palbo/pinboard-extension">github</a>
+                &nbsp; &rarr; &nbsp;
+                <code>git clone git://github.com/palbo/pinboard-extension.git</code>
+            </p>
+        </div>
+
+        <div class=section>
+            <h2 id=c>Contact and support</h2>
+            <p>
+            <a href="https://github.com/palbo/pinboard-extension/issues" title="bug tracker">Report a bug or a feature request</a>.
+            </p>
+            <p>
+                Comments, patches, ideas and/or free pizza &nbsp; &rarr;
+                &nbsp; <code style="font-family: monospace">quuxbaz@gmail.com</code>
+            </p>
+        </div>
+
+        <div class=section>
+            <h2 id=l>License</h2>
+            <p>
+                BSD License, see the <a href="http://github.com/palbo/pinboard-extension/blob/master/LICENSE">LICENSE</a>
+                file for more details
+            </p>
+        </div>
+
+        <div id=footer>
+            <div class=nav style="float: none">
+                <a href="#f">features</a> &middot;
+                <a href="#d">download</a> &middot;
+                <a href="#c">contact</a>
+            </div>
+            <p>copyright &copy; 2010 pablo flouret</p>
+        </div>
+    </div>
+</body>
+</html>
