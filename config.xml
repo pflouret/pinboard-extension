@@ -1,9 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget xmlns="http://www.w3.org/ns/widgets" version="1.0" id="pinboard">
   <name>pinboard.in</name>
-  <description>
-      Easily save the current page to pinboard.in
-  </description>
+  <description>Easily save the current page to pinboard.in</description>
   <author href="http://quux.com.ar" email="quuxbaz@gmail.com">Pablo Flouret</author>
   <icon src="img/logo.png" width="64" height="64"/>
 
