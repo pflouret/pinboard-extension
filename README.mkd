@@ -1,3 +1,5 @@
 A simple extension to easily save the current page in pinboard.in
 
 Get an account at [http://pinboard.in](http://pinboard.in) before get expensive!
+
+Source at http://github.com/palbo/pinboard-extension
