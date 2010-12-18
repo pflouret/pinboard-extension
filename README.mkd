@@ -2,7 +2,7 @@ A simple extension to easily save the current page in pinboard.in
 
 Get an account at [http://pinboard.in](http://pinboard.in) before get expensive!
 
-Install from [here](https://addons.opera.com/addons/extensions/details/pinboardin/1.0/).
+Install from [here](https://addons.opera.com/addons/extensions/details/pinboardin/).
 
 Source at [github](http://github.com/palbo/pinboard-extension).
 
