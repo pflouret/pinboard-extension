@@ -2,8 +2,8 @@
 <html>
 <head>
     <link rel=stylesheet type="text/css" href="style.css">
-    <script type="text/javascript" src="messages.js"></script>
-    <script type="text/javascript" src="popup.js"></script>
+    <script src="messages.js"></script>
+    <script src="popup.js"></script>
 
     <script>
         if (opera.extension && !opera.extension.bgProcess.user)
@@ -34,21 +34,22 @@
             a.textContent = bg.user;
             a.href = "http://pinboard.in/u:" + bg.user;
 
+            populateUserTags(document.getElementById("user-tags"));
+
             data = fillForm();
 
-            if (data.url) {
-                sendSelectionRequest();
-
-                if (!data.inStorage)
-                    bg.pinboard.posts.get(populateFormFromExisting, data.url);
-
-                bg.pinboard.posts.suggest(getPopulateTags(document.getElementById("suggested")), data.url);
-            } else {
+            if (!data.url) {
                 showMessage("error", "Couldn't get the url from the current tab, please reload it.");
                 document.querySelector("#suggested p").innerHTML = "&#x2205;";
+                return;
             }
 
-            populateUserTags(document.getElementById("user-tags"));
+            sendSelectionRequest();
+
+            if (!data.inStorage)
+                bg.pinboard.posts.get(populateFormFromExisting, data.url);
+
+            bg.pinboard.posts.suggest(getPopulateTags(document.getElementById("suggested")), data.url);
         }
     </script>
 </head>
