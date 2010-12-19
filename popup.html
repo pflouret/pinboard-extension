@@ -37,13 +37,17 @@
             data = fillForm();
 
             if (data.url) {
+                sendSelectionRequest();
+
                 if (!data.inStorage)
                     bg.pinboard.posts.get(populateFormFromExisting, data.url);
+
                 bg.pinboard.posts.suggest(getPopulateTags(document.getElementById("suggested")), data.url);
             } else {
                 showMessage("error", "Couldn't get the url from the current tab, please reload it.");
                 document.querySelector("#suggested p").innerHTML = "&#x2205;";
             }
+
             populateUserTags(document.getElementById("user-tags"));
         }
     </script>

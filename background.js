@@ -39,13 +39,17 @@ function currentUrl() {
 }
 
 o.onmessage = function (e) {
-    var obj = JSON.parse(e.data);
-    switch (obj.type) {
+    var m = JSON.parse(e.data);
+    switch (m.type) {
         case "userjs":
             // it was probably a background page, not necessarily the focused one, but what the hell...
             if (!alwaysEnableUIItem && user)
                 uiitem.disabled = !o.tabs.getFocused();
             break;
+        case "selection":
+            try {
+                o.tabs.getFocused().postMessage(e.data, e.ports);
+            } catch (e) {}
         default:
             break;
     }

@@ -182,3 +182,18 @@ function getPopulateTags(div, cache) {
     }
 }
 
+function sendSelectionRequest() {
+    var channel = new MessageChannel();
+
+    channel.port1.onmessage = function (e) {
+        var m = JSON.parse(e.data);
+        if (m.type == "selection") {
+            var desc = document.forms["save-link"].elements.desc;
+            if (!desc.value)
+                desc.value = m.selection;
+        }
+    }
+
+    opera.extension.postMessage(JSON.stringify({ type: "selection" }), [channel.port2]);
+}
+
