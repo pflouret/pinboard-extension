@@ -107,8 +107,8 @@ function submitForm() {
             showMessage("error", 'Server returned error "'+r.code+"'");
         } else {
             showMessage("success", "Link saved!");
-            hideMessage();
             delete bg.storage[url];
+            setTimeout(function () { window.close(); }, 600);
         }
     }
 
