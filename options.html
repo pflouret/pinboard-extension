@@ -25,12 +25,13 @@
             opera.extension.bgProcess.updateUIItem();
 
             showMessage("success", "Preferences saved");
+            setTimeout(hideMessage, 0);
         }
     </script>
 </head>
 <body>
     <h1>pinboard.in extension preferences</h1>
-    <p id=msgbox class=hidden onclick="hideMessage(true)"></p>
+    <p id=msgbox class=hidden onclick="hideMessage(true)">&nbsp;</p>
     <form name=options onsubmit="return false" onchange="handleFormChanged()">
         <input name=width type=number> <label for=width>Popup width (px)</label><br>
         <input name=height type=number> <label for=height>Popup height (px)</label><br>
