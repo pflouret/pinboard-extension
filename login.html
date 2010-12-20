@@ -33,7 +33,7 @@
 
             showMessage("message", "Checking login details", true);
 
-            var r = bg.setUser(f.elements.username.value, f.elements.password.value);
+            var r = bg.setUser(f.elements.username.value, f.elements.password.value, f.elements.save.checked);
 
             if (r.type == "error")
                 showMessage("error", r.code == 401 ? "Wrong username or password" : r.msg);
@@ -53,6 +53,11 @@
         <form name=login action="" onsubmit="return submitForm()">
             <input name=username type=text required> <label for=username>username</label><br>
             <input name=password type=password required> <label for=password>password</label><br>
+            <input name=save type=checkbox>
+            <label for=save>
+                save the login information
+                (<span style="color: red">warning! it will be saved to disk obfuscated but in plain text!</span>)
+            </label><br>
             <input type=submit name=login value="login">
         </form>
     </div>

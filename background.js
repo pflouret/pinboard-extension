@@ -7,18 +7,24 @@ var pinboard;
 
 var alwaysEnableUIItem = true;
 
-function setUser(username, password) {
+function setUser(username, password, save) {
     pinboard = new Pinboard(username, password);
     var r = pinboard.posts.update();
 
     if (r.type != "error") {
         user = username;
         pass = password;
-        //uiitem.popup.href = "popup.html";
-        //updateUIItem();
+
+        if (save) {
+            widget.preferences.u = user;
+            widget.preferences.p = pass;
+        }
     }
 
-    delete storage.userTags;
+    var tags = storage.userTags;
+    storage.clear();
+    if (tags)
+        storage.userTags = tags;
 
     return r;
 }
@@ -27,7 +33,9 @@ function logout() {
     pinboard = null;
     user = null;
     pass = null;
-    delete storage.userTags;
+    delete widget.preferences.u;
+    delete widget.preferences.p;
+    storage.clear();
 }
 
 function currentTitle() {
@@ -83,7 +91,6 @@ function updateUIItem() {
 
 updateUIItem();
 
-var tags = storage.userTags;
-storage.clear();
-storage.userTags = tags;
+if (widget.preferences.u && widget.preferences.p)
+    setUser(widget.preferences.u, widget.preferences.p);
 
