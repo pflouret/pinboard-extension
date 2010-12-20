@@ -139,10 +139,12 @@ function addOrRemoveTag() {
 }
 
 function populateUserTags(div) {
-    if (bg.storage.userTags) {
+    var p = widget.preferences;
+
+    if (p.tags) {
         var a = {
             type: "tags",
-            tags: bg.storage.userTags.split(" ").map(function (t) { return { name: t }; })
+            tags: p.tags.split(" ").map(function (t) { return { name: t }; })
         }
         getPopulateTags(div)(a);
     }
@@ -157,9 +159,9 @@ function getPopulateTags(div, cache) {
         if (r.type == "tags") {
             if (cache) {
                 var s = r.tags.map(function (t) { return t.name }).join(" ");
-                if (bg.storage.userTags == s)
+                if (widget.preferences.tags == s)
                     return;
-                bg.storage.userTags = s;
+                widget.preferences.tags = s;
             }
 
             if (r.tags.length == 0) {

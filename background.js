@@ -19,10 +19,8 @@ function setUser(username, password, save) {
         }
     }
 
-    var tags = storage.userTags;
+    delete widget.preferences.tags;
     storage.clear();
-    if (tags)
-        storage.userTags = tags;
 
     return r;
 }
@@ -33,6 +31,7 @@ function logout() {
     pass = null;
     delete widget.preferences.u;
     delete widget.preferences.p;
+    delete widget.preferences.tags;
     storage.clear();
 }
 
