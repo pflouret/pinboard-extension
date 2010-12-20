@@ -5,8 +5,6 @@ var uiitem;
 var user, pass;
 var pinboard;
 
-var alwaysEnableUIItem = true;
-
 function setUser(username, password, save) {
     pinboard = new Pinboard(username, password);
     var r = pinboard.posts.update();
@@ -49,24 +47,12 @@ function currentUrl() {
 o.onmessage = function (e) {
     var m = JSON.parse(e.data);
     switch (m.type) {
-        case "userjs":
-            // it was probably a background page, not necessarily the focused one, but what the hell...
-            if (!alwaysEnableUIItem && user)
-                uiitem.disabled = !o.tabs.getFocused();
-            break;
         case "selection":
             try {
                 o.tabs.getFocused().postMessage(e.data, e.ports);
             } catch (e) {}
         default:
             break;
-    }
-}
-
-if (!alwaysEnableUIItem) {
-    o.tabs.onfocus = function () {
-        if (user)
-            uiitem.disabled = !o.tabs.getFocused();
     }
 }
 

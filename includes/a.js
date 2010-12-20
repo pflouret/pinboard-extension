@@ -1,4 +1,3 @@
-opera.extension.postMessage(JSON.stringify({type: "userjs"}));
 
 opera.extension.onmessage = function (e) {
     var m = JSON.parse(e.data);
