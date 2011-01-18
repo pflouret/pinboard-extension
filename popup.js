@@ -30,7 +30,6 @@ function fillForm() {
     f.url.value = url;
     f.title.value = title;
     f.private.checked = widget.preferences.privateAsDefault == "true";
-    //f.desc.value = document.getSelection();
 
     return ret;
 }
@@ -57,7 +56,6 @@ function saveForm(url) {
     if (!url)
         return;
 
-    opera.postError('saving ' + url);
     var f = document.forms["save-link"];
     bg.storage[url] = JSON.stringify({
         url: f.elements.url.value,
