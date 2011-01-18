@@ -90,7 +90,7 @@ function Pinboard(user, pass) {
                 v = v.join(" ");
 
             if (v)
-                q.push(k + "=" + encodeURI(v));
+                q.push(k + "=" + encodeURIComponent(v));
         }
 
         return q.length == 0 ? url : url + "?" + q.join("&");
