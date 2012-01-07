@@ -136,7 +136,7 @@ function addOrRemoveTag() {
     return false;
 }
 
-function populateUserTags(div) {
+function setupUserTags(div, tagsInput) {
     var p = widget.preferences;
 
     if (p.tags) {
@@ -144,17 +144,19 @@ function populateUserTags(div) {
             type: "tags",
             tags: p.tags.split(" ").map(function (t) { return { name: t }; })
         }
-        getPopulateTags(div)(a);
+        getPopulateTags(div, tagsInput)(a);
     }
 
-    bg.pinboard.tags.get(getPopulateTags(div, true));
+    bg.pinboard.tags.get(getPopulateTags(div, tagsInput, true));
 }
 
-function getPopulateTags(div, cache) {
+function getPopulateTags(div, tagsInput, cache) {
     return function (r) {
         var p = div.getElementsByTagName("p")[0];
 
         if (r.type == "tags") {
+            new AutoComplete(tagsInput, r.tags.map(function (t) { return t.name; }));
+
             if (cache) {
                 var s = r.tags.map(function (t) { return t.name }).join(" ");
                 if (widget.preferences.tags == s)

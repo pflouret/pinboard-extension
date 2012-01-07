@@ -3,6 +3,7 @@
 <head>
     <meta charset=utf-8>
     <link rel=stylesheet type="text/css" href="style.css">
+    <script src="autocomplete.js"></script>
     <script src="messages.js"></script>
     <script src="popup.js"></script>
 
@@ -35,7 +36,8 @@
             a.textContent = bg.user;
             a.href = "http://pinboard.in/u:" + bg.user;
 
-            populateUserTags(document.getElementById("user-tags"));
+            setupUserTags(document.getElementById("user-tags"),
+                          document.forms["save-link"].elements.tags);
 
             data = fillForm();
 
@@ -71,6 +73,7 @@
             <input name=title type=text> <label for=title>title</label><br>
             <textarea name=desc></textarea> <label for=desc>description</label><br>
             <input name=tags type=text> <label for=tags>tags</label><br>
+            <span style="color: #aaa; font-size: 0.9em">Press tab to move between suggestions, press enter to select one.</span>
             <input name=url type=text required> <label for=url>url</label><br>
             <input name=private type=checkbox> <label for=private>private</label>
             <input name=toread type=checkbox> <label for=toread>read later</label>
@@ -87,5 +90,6 @@
         <h1>Your tags</h1>
         <p><img src="img/loading.gif"></p>
     </div>
+    <div id="autosuggest"><ul></ul></div>
 </body>
 </html>
